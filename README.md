@@ -101,7 +101,7 @@ Output: SameAs neighbors folder--> nbrs/sameAsP <br>
 <b>Create SameAs Catalog by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP sameAs prefixIndexes/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1<br>
 Output: It will perform 4 iterations and the SameAs Catalog can be found in 4 Parts--> sameAs/sameAs1/sameAsCatalog, sameAs/sameAs2/sameAsCatalog, sameAs/sameAs3/sameAsCatalog, sameAs/sameAs4/sameAsCatalog<br>
 
-<b> Intermediate Steps<b>
+<b> Intermediate Steps</b>
 Merge sameAsCatalog files and then upload it to the URIs folder <br>
   
 hadoop fs -getmerge sameAs/sameAs1/sameAsCatalog/ sameAsCatalog1.txt <br>
