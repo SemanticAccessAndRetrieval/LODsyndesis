@@ -138,7 +138,7 @@ Output: Direct Counts of element Index--> directCounts
 
 Description: It will measure the common elements between subsets of sources until level 15 having at least 1000 common elements. Moreover, it will save all the measurements from level 2 to level 10.
 <br>
-Output--> A folder lattice/Print containing the measurements for nodes from level 2 to 10 having at least 1000 common elements
+Output: A folder lattice/Print containing the measurements for nodes from level 2 to 10 having at least 1000 common elements
 
 
 <b>Create Common Literals Index Direct Counts by using 1 Reducer:</b>   hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts  literalsIndex/ directCountsLiterals 1
@@ -148,7 +148,7 @@ Output--> A folder lattice/Print containing the measurements for nodes from leve
 
 Description: It will measure the number of common literals between subsets of sources until level 15 having at least 1000 common literals. Moreover, it will save all the measurements from level 2 to level 10.
 <br>
-Output--> A folder latticeLiterals/Print containing the measurements for nodes from level 2 to 10 having at least 1000 common literals
+Output: A folder latticeLiterals/Print containing the measurements for nodes from level 2 to 10 having at least 1000 common literals
 
 </body>
   
