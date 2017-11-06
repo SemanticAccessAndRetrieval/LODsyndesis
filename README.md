@@ -120,7 +120,7 @@ hadoop fs -rm URIs/sameAs2_-1.txt
 <br>
 Output: It will perform 2 iterations and the element Index can be found in 2 Parts--> elementIndex/Part1, elementIndex/Part2
 
-<b> Intermediate Step<b>
+<b> Intermediate Step</b>
 Merge Element Index part 1 and part 2 <br>
 
 hadoop fs -getmerge elementIndex/Part2/ part2.txt  <br>
