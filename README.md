@@ -15,18 +15,16 @@ The datasets for creating the LODsyndesis indexes can be found in <a href="https
 <h2>How to Create the Indexes</h2>
 First, one should upload the datasets in a specific folder (e.g., in HDFS). Below, we describe the commands that one should use for create the indexes and a specific example. For the examples below, we suppose that we have uploaded the URIs of the datasets in a folder called URIs/ and the literals in a folder called Literals/.#
 <h3> Create the Prefix Indexes</h3>
-<b> Command for creating the Prefix and the SameAsPrefixIndex</b> <br>
+<b> Command for creating the Prefix and the SameAsPrefixIndex: <br>
 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex &lt;Datasets Folder&gt; &lt;Output Folder&gt; &lt;Number of Reducers&gt;  <br>
 where <br>
 &lt;Datasets folder&gt;: The folder containing the URIs of the datasets. <br>
 &lt;Output folder&gt;: The output folder for storing the prefix indexes. <br>
 &lt;Number of Reducers&gt;: The number of reducers to be used. <br>
   
-<b>Example by using 1 Reducer:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br>
-
 
 <h3> Create the SameAs Catalog</h3>
-<b> Command for running the SameAs HashToMin algorithm </b> <br>
+<b> Command for running the SameAs HashToMin algorithm: </b>
 hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin &lt;SameAs Neigbors Folder&gt; &lt;Output Folder&gt; &lt;SameAsPrefix Index Path&gt; &lt;Number of Reducers&gt;  &lt;Threshold for Using Signature Algorithm&gt; &lt;Value for Enabling SameAsPrefixIndex&gt; <br>
 where <br>
 &lt;SameAs Neighbors folder&gt;: The folder containing the sameAs Neighbors <br>
@@ -38,8 +36,9 @@ where <br>
   
   
   
-<b>Example by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP prefixIndex/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1<br>
 
+<b>Example by using 1 Reducer:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br>
+<b>Example by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP prefixIndex/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1<br>
 
   
 </body>
