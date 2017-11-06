@@ -91,13 +91,15 @@ where <br>
 <h3>Full Example for creating the indexes</h3>
 For the examples below, we suppose that we have uploaded the URIs of the datasets in a folder called URIs/ and the literals in a folder called Literals/.
 
+<b> Create Prefix Index by using one reducer: </b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br>
+Output: Prefix Index file--> prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 <br>
+SameAsPrefix Index file--> sameAsPrefix/sameAsPrefix.txt-r-00000 <br>
 
-<b>Example by using 1 Reducer:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br>
-hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.GetNeighborsSameAs datasets/sameAs2_-1.txt nbrs 32 
-<b>Example by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP prefixIndex/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1<br>
-hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateElementIndex datasets elementIndex prefixIndex/prefixIndex/prefixIndex.txt-r-00000 32
-hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts elementIndex/Part1 directCounts 1
+<b> Create SameAs Neighbors by using 32 reducers: </b>hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.GetNeighborsSameAs URIs/sameAs2_-1.txt nbrs 32  <br>
+Output: SameAs neighbors folder--> nbrs/sameAsP <br>
 
+<b>Create SameAs Catalog by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP sameAs prefixIndexes/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1<br>
+Output: SameAs Catalog in 4 Parts--> sameAs/sameAs1/sameAsCatalog,sameAs/sameAs2/sameAsCatalog,sameAs/sameAs3/sameAsCatalog,sameAs/sameAs4/sameAsCatalog<br>
 
   
 </body>
