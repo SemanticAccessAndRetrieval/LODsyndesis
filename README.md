@@ -43,14 +43,49 @@ where <br>
 &lt;SameAsPrefix Index Path&gt; : The path of the SameAsPrefix Index <br>  
 &lt;Threshold for Using the Signature Algorithm&gt;: If the number of remaining URIs is less than a threshold, the signature algorithm will be used.<br>
 &lt;Value for Enabling SameAsPrefixIndex&gt; Put 1 for using SameAsPrefixIndex or 0 for not using it.
-  
-  
-  
+
+<h3> Create the Element Index</h3>
+<b> Command for running the Element Index: </b>
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateElementIndex &lt;Input Folder&gt; &lt;Output Folder&gt; &lt;Prefix Index Path&gt; &lt;Number of Reducers&gt; <br>
+where <br>
+&lt;SameAs Neighbors folder&gt;: The folder containing the URIs and the sameAs Catalog <br>
+&lt;Output folder&gt;: The output folder for storing the elementIndex. <br>
+&lt;Prefix Index Path&gt; : The path of the Prefix Index <br>  
+&lt;Number of Reducers&gt;: The number of reducers to be used. <br>
+ 
+
+<h3> Create Direct Counts</h3>
+<b> Command for creating DirectCounts: </b>
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts 
+&lt;Index Folder&gt; &lt;Output Folder&gt; &lt;Number of Reducers&gt; <br>
+where <br>
+&lt;Index Folder &gt;: The folder containing an Index (e.g., literals index or element index) <br>
+&lt;Output folder&gt;: The output folder for storing the direct counts. <br>
+&lt;Number of Reducers&gt;: The number of reducers to be used. <br>
+   
+
+<h3> Create  Lattice</h3>
+<b> Command for creating a lattice: </b>
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice directCounts lattice 32 10000 15 0 15 0.05
+
+&lt;Direct Counts Folder&gt; &lt;Output Folder&gt; &lt;Number of Reducers&gt; &lt;Threshold of Common Elements&gt; &lt;Maximum Level to reach &gt; &lt;Save to File from Level X&gt; &lt;Save to File until Level Y&gt; &lt;Split Threshold&gt; <br>
+where <br>
+&lt;Direct Counts Folder &gt;: The folder containing the direct Counts  <br>
+&lt;Output folder&gt;: The output folder for storing the measurements. <br>
+&lt;Number of Reducers&gt;: The number of reducers to be used. <br>
+&lt;Threshold t of Common Elements&gt;: Measure subsets having more than t common elements<br>
+&lt;Maximum Level to reach&gt;: The maximum lattice level to reach<br>
+&lt;Save to File from Level X&gt;: Save all the measurements starting from this lattive level X. <br>
+&lt;Save to File until Level Y&gt;: Save all the measurements until this lattive level Y <br>
+&lt;Split Threshold&gt;: A value [0,1] for configuring how to split the lattice in reducers <br>
 
 
 <b>Example by using 1 Reducer:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br>
 hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.GetNeighborsSameAs datasets/sameAs2_-1.txt nbrs 32 
 <b>Example by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP prefixIndex/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1<br>
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateElementIndex datasets elementIndex prefixIndex/prefixIndex/prefixIndex.txt-r-00000 32
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts elementIndex/Part1 directCounts 1
+
 
   
 </body>
