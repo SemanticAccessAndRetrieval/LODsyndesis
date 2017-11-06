@@ -16,13 +16,13 @@ The datasets for creating the LODsyndesis indexes can be found in <a href="https
 First, one should upload the datasets in a specific folder (e.g., in HDFS). Below, we describe the commands that one should use for create the indexes and a specific example. For the examples below, we suppose that we have uploaded the URIs of the datasets in a folder called URIs/ and the literals in a folder called Literals/.#
 <h4> Create the Prefix Indexes</h2>
 <b> Command for creating the Prefix and the SameAsPrefixIndex</b> <br>
-hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex <Datasets Folder> <Output Folder> <Number of Reducers> <br>
-<Datasets folder>: The folder containing the URIs of the datasets. <br>
-<Output folder>: The output folder for storing the prefix indexes. <br>
-<Number of Reducers>: The number of reducers to be used. <br>
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex &lt;Datasets Folder&gt; &lt;Output Folder&gt; &lt;Number of Reducers&gt; <br>
+&lt;Datasets folder&gt;: The folder containing the URIs of the datasets. <br>
+&lt;Output folder&gt;: The output folder for storing the prefix indexes. <br>
+&lt;Number of Reducers&gt;: The number of reducers to be used. <br>
   
 
-hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex datasets prefixIndex 1
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1
 
   
 </body>
