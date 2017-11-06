@@ -91,7 +91,7 @@ where <br>
 <h3>Full Example for creating the indexes</h3>
 For the examples below, we suppose that we have uploaded the URIs of the datasets in a folder called URIs/ and the literals in a folder called Literals/.
 
-<b> Create Prefix Index by using one reducer: </b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br>
+<b> Create Prefix Index by using one reducer: </b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br><br>
 Output: Prefix Index file--> prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 <br>
 SameAsPrefix Index file--> sameAsPrefix/sameAsPrefix.txt-r-00000 <br>
 
@@ -105,13 +105,13 @@ Output: It will perform 4 iterations and the SameAs Catalog can be found in 4 Pa
 Merge sameAsCatalog files and then upload them to the URIs folder <br>
   
 hadoop fs -getmerge sameAs/sameAs1/sameAsCatalog/ sameAsCatalog1.txt <br>
-hadoop fs -put sameAsCatalog1.txt URIS/  <br>
+hadoop fs -put sameAsCatalog1.txt URIs/  <br>
 hadoop fs -getmerge sameAs/sameAs2/sameAsCatalog/ sameAsCatalog2.txt <br>
-hadoop fs -put sameAsCatalog2.txt URIS/  <br>
+hadoop fs -put sameAsCatalog2.txt URIs/  <br>
 hadoop fs -getmerge sameAs/sameAs3/sameAsCatalog/ sameAsCatalog3.txt <br>
-hadoop fs -put sameAsCatalog3.txt URIS/  <br>
+hadoop fs -put sameAsCatalog3.txt URIs/  <br>
 hadoop fs -getmerge sameAs/sameAs4/sameAsCatalog/ sameAsCatalog4.txt <br>
-hadoop fs -put sameAsCatalog4.txt URIS/  <br>
+hadoop fs -put sameAsCatalog4.txt URIs/  <br>
 
 Delete sameAs relationships from URIs/ folder. <br>
 hadoop fs -rm URIs/sameAs2_-1.txt
