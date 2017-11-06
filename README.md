@@ -2,13 +2,13 @@
 This page contains the code for creating the indexes and measurements of LODsyndesis (see  swww.ics.forth.gr/isl/LODsyndesis/)
 <html>
  <body>
-By executing the jar, one can create <li>
-<ul>a) the Prefix Index and SameAsPrefixIndex, </ul>
-<ul>b) the SameAsCatalog, </ul>
-<ul>c) the Element Index, </ul>
-<ul>d) the Common Literals Index, </ul>
-<ul>e) the Lattice of Common Elements among any subset of sources.</ul>
-</li> 
+By executing the jar, one can create <ul>
+<li>the Prefix Index and SameAsPrefixIndex, </li>
+<li>the SameAsCatalog, </li>
+<li>the Element Index, </li>
+<li>the Common Literals Index, </li>
+<li>the Lattice of Common Elements among any subset of sources.</li>
+</ul> 
   
   
 </body>
