@@ -15,7 +15,7 @@ The datasets for creating the LODsyndesis indexes can be found in <a href="https
 <h2>How to Create the Indexes</h2>
 First, one should upload the datasets in a specific folder (e.g., in HDFS). Below, we describe the commands that one should use for create the indexes and a specific example. For the examples below, we suppose that we have uploaded the URIs of the datasets in a folder called URIs/ and the literals in a folder called Literals/.#
 <h3> Create the Prefix Indexes</h3>
-<b> Command for creating the Prefix and the SameAsPrefixIndex: <br>
+<b> Command for creating the Prefix and the SameAsPrefixIndex:</b>
 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex &lt;Datasets Folder&gt; &lt;Output Folder&gt; &lt;Number of Reducers&gt;  <br>
 where <br>
 &lt;Datasets folder&gt;: The folder containing the URIs of the datasets. <br>
@@ -30,8 +30,8 @@ where <br>
 &lt;SameAs Neighbors folder&gt;: The folder containing the sameAs Neighbors <br>
 &lt;Output folder&gt;: The output folder for storing the sameAsCatalog. <br>
 &lt;Number of Reducers&gt;: The number of reducers to be used. <br>
-&lt;<SameAsPrefix Index Path&gt; : The path of the SameAsPrefix Index <br>  
-&lt;Threshold for Using the Signature Algorithm&gt; If the number of URIs is less than a threshold, the signature algorithm will be used <br>
+&lt;SameAsPrefix Index Path&gt; : The path of the SameAsPrefix Index <br>  
+&lt;Threshold for Using the Signature Algorithm&gt;: If the number of URIs is less than a threshold, the signature algorithm will be used <br>
 &lt;Value for Enabling SameAsPrefixIndex&gt; Put 1 for using SameAsPrefixIndex or 0 for not using it.
   
   
