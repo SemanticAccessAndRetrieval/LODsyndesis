@@ -99,9 +99,57 @@ SameAsPrefix Index file--> sameAsPrefix/sameAsPrefix.txt-r-00000 <br>
 Output: SameAs neighbors folder--> nbrs/sameAsP <br>
 
 <b>Create SameAs Catalog by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP sameAs prefixIndexes/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1<br>
-Output: SameAs Catalog in 4 Parts--> sameAs/sameAs1/sameAsCatalog,sameAs/sameAs2/sameAsCatalog,sameAs/sameAs3/sameAsCatalog,sameAs/sameAs4/sameAsCatalog<br>
+Output: It will perform 4 iterations and the SameAs Catalog can be found in 4 Parts--> sameAs/sameAs1/sameAsCatalog, sameAs/sameAs2/sameAsCatalog, sameAs/sameAs3/sameAsCatalog, sameAs/sameAs4/sameAsCatalog<br>
 
+<b> Intermediate Steps<b>
+Merge sameAsCatalog files and then upload it to the URIs folder <br>
   
+hadoop fs -getmerge sameAs/sameAs1/sameAsCatalog/ sameAsCatalog1.txt <br>
+hadoop fs -put sameAsCatalog1.txt URIS/  <br>
+hadoop fs -getmerge sameAs/sameAs2/sameAsCatalog/ sameAsCatalog2.txt <br>
+hadoop fs -put sameAsCatalog2.txt URIS/  <br>
+hadoop fs -getmerge sameAs/sameAs3/sameAsCatalog/ sameAsCatalog3.txt <br>
+hadoop fs -put sameAsCatalog3.txt URIS/  <br>
+hadoop fs -getmerge sameAs/sameAs4/sameAsCatalog/ sameAsCatalog4.txt <br>
+hadoop fs -put sameAsCatalog4.txt URIS/  <br>
+
+Delete sameAs relationships from URIs/ folder. <br>
+hadoop fs -rm URIs/sameAs2_-1.txt
+
+<b>Create Element Index by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateElementIndex URIs/ elementIndex prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 32
+<br>
+Output: It will perform 2 iterations and the element Index can be found in 2 Parts--> elementIndex/Part1, elementIndex/Part2
+
+<b> Intermediate Step<b>
+Merge Element Index part 1 and part 2 <br>
+
+hadoop fs -getmerge elementIndex/Part2/ part2.txt  <br>
+hadoop fs -put part2.txt elementIndex/Part1/                 
+
+<b>Create Common Literals Index by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateCommonLiteralsIndex Liteals/ literalsIndex  32
+<br>
+Output: Common Literals Index--> literalsIndex
+
+<b>Create Element Index Direct Counts by using 1 Reducer:</b>   hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts elementIndex/Part1 directCounts 1
+<br>
+Output: Direct Counts of element Index--> directCounts
+
+<b>Create Element Index Lattice by using 32 reducers:</b>   hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice directCounts lattice 32 1000 15 2 10 0.05 <br>
+
+Description: It will measure the common elements between subsets of sources until level 15 having at least 1000 common elements. Moreover, it will save all the measurements from level 2 to level 10.
+<br>
+Output--> A folder lattice/Print containing the measurements for nodes from level 2 to 10 having at least 1000 common elements
+
+
+<b>Create Common Literals Index Direct Counts by using 1 Reducer:</b>   hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts  literalsIndex/ directCountsLiterals 1
+<br> Output: Direct Counts of Literals --> directCountsLiterals <br>
+
+<b>Create Literals Lattice by using 32 reducers:</b>   hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice directCountsLiterals latticeLiterals 32 1000 15 2 10 0.05 <br>
+
+Description: It will measure the number of common literals between subsets of sources until level 15 having at least 1000 common literals. Moreover, it will save all the measurements from level 2 to level 10.
+<br>
+Output--> A folder latticeLiterals/Print containing the measurements for nodes from level 2 to 10 having at least 1000 common literals
+
 </body>
   
   
