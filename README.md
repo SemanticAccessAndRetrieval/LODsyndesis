@@ -67,7 +67,7 @@ where <br>
 
 <h4> Create the Real World Triples</h4>
 <b> Command for running the real world triples algorithm: </b>
-<b> First Job </b>
+<br>
 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceSubjects 
 &lt;Triples Folder&gt; &lt;Output Folder&gt; 
 &lt;Number of Reducers&gt;  &lt;PropertyCatalog File&gt; &lt;ClassCatalog File&gt; <br>
