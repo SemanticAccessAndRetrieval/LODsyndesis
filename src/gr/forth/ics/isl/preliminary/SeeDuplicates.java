@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Prefix {
+public class SeeDuplicates {
 	public int id;
 	int uris;
 	int numberOfURIs;

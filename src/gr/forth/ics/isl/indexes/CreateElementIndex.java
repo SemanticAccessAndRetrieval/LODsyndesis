@@ -1,17 +1,6 @@
-/*
-This code belongs to the Semantic Access and Retrieval (SAR) group of the 
-Information Systems Laboratory (ISL) of the 
-Institute of Computer Science (ICS) of the  
-Foundation for Research and Technology – Hellas (FORTH)
-
-Nobody is allowed to use, copy, distribute, or modify this work.
-It is published for reasons of research results reproducibility.
-
-© 2017, Semantic Access and Retrieval group, All rights reserved
-
- */
 package gr.forth.ics.isl.indexes;
 
+import gr.forth.ics.isl.indexes.CreateLiteralsIndex.Counter;
 import gr.forth.ics.isl.latticeCreation.CreateLattice;
 import gr.forth.ics.isl.preliminary.Prefix;
 
@@ -57,7 +46,7 @@ public class CreateElementIndex extends Configured implements Tool {
 	}
 
 	public static enum Counter {
-		URISinONESOURCE, URISNUM, URISPOLICY1
+		URISinONESOURCE,URIStwo, uristhree
 	}
 
 	@Override
@@ -123,7 +112,7 @@ public class CreateElementIndex extends Configured implements Tool {
 						new Text("SID\t"+split[1].trim()));
 			}
 			if (split.length == 1) {
-				datasetID = split2[1].replace(".txt", "").replace(".ttl", "");
+				datasetID = split2[0];//.replace(".txt", "").replace(".ttl", "");
 				String prefix = getPrefix(split[0]);
 				if (pr.containsKey(prefix)
 						&& pr.get(prefix).getNumberOfURIs() > 1) {
@@ -239,8 +228,8 @@ public class CreateElementIndex extends Configured implements Tool {
 					mos.write("elementIndexPart1", key, new Text(datasetIDs), "Part1/");
 				}
 			}
-			else
-				context.getCounter(Counter.URISPOLICY1).increment(1);
+			//else
+			//.getCounter(Counter.URISPOLICY1).increment(1);
 			
 		}
 
@@ -297,7 +286,14 @@ public class CreateElementIndex extends Configured implements Tool {
 				datasetIDs = datasetIDs.substring(0, datasetIDs.length() - 1);
 			if (docs.size() >= 2) {
 					mos.write("elementIndexPart2", key, new Text(datasetIDs), "elementIndexPart2");	
+					if (docs.size() == 2)
+						context.getCounter(Counter.URIStwo).increment(1);
+					if (docs.size() >= 3)
+						context.getCounter(Counter.uristhree).increment(1);
 			}
+			else
+				context.getCounter(Counter.URISinONESOURCE).increment(1);
+
 		}
 
 	}

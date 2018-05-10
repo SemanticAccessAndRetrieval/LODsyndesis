@@ -1,15 +1,3 @@
-/*
-This code belongs to the Semantic Access and Retrieval (SAR) group of the 
-Information Systems Laboratory (ISL) of the 
-Institute of Computer Science (ICS) of the  
-Foundation for Research and Technology – Hellas (FORTH)
-
-Nobody is allowed to use, copy, distribute, or modify this work.
-It is published for reasons of research results reproducibility.
-
-© 2017, Semantic Access and Retrieval group, All rights reserved
- 
- */
 package gr.forth.ics.isl.latticeCreation;
 
 import java.io.IOException;
@@ -77,8 +65,12 @@ public class CreateDirectCounts extends Configured implements Tool {
 					.toString().contains("xmlns.com/foaf"))) {
 				return;
 			}
-			if (x.length > 1)
+			if (x.length ==2 && x[1].split(",").length>1)
 				context.write(new Text(x[1]), new IntWritable(1));
+			else  if (x.length ==4 && x[3].split(",").length>1){
+				context.write(new Text(x[3]), new IntWritable(1));
+
+			}
 		}
 	}
 

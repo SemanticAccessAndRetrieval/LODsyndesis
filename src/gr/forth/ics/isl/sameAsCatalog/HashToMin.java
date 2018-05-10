@@ -1,15 +1,3 @@
-/*
-This code belongs to the Semantic Access and Retrieval (SAR) group of the 
-Information Systems Laboratory (ISL) of the 
-Institute of Computer Science (ICS) of the  
-Foundation for Research and Technology – Hellas (FORTH)
-
-Nobody is allowed to use, copy, distribute, or modify this work.
-It is published for reasons of research results reproducibility.
-
-© 2017, Semantic Access and Retrieval group, All rights reserved
- 
- */
 package gr.forth.ics.isl.sameAsCatalog;
 
 
@@ -77,7 +65,7 @@ public class HashToMin extends Configured implements Tool {
 		while (true) {
 			String jobid = "" + count;
 			if (count < 10)
-				jobid = "0" + "" + Integer.toString(count);
+				jobid = Integer.toString(count);
 			getConf().set("job", jobid);
 			int type = Integer.parseInt(args[5]);
 			getConf().set("type", type + "");
@@ -274,8 +262,9 @@ public class HashToMin extends Configured implements Tool {
 				e.printStackTrace();
 			}
 
-		}
+		
 
+		}
 	}
 
 	public static class Reduce extends Reducer<Text, Text, Text, Text> {
@@ -495,10 +484,10 @@ public class HashToMin extends Configured implements Tool {
 				sameAsURIs = sameAsURIs.substring(0, sameAsURIs.length() - 1);
 
 			if (min == "") {
-				String codeID = ID + code;
+				String codeID = +ID + code;
 				ID++;
 				mos.write("sameAsChain",
-						codeID + "\t" + finished.replace("papaki", "@"),
+						"EID"+codeID + "\t" + finished.replace("papaki", "@"),
 						new Text(ids), "sameAsChain/");
 
 				HashSet<String> finishURIs = new HashSet<String>();
@@ -509,7 +498,7 @@ public class HashToMin extends Configured implements Tool {
 
 					mos.write("sameAsCatalog",
 							k.replace("comma", ",").replace("papaki", "@"),
-							codeID, "sameAsCatalog/");
+							"EID"+codeID, "sameAsCatalog/");
 				}
 				context.getCounter(Counter.CLASSESOFEQUIVALENCE).increment(1);
 
@@ -610,7 +599,7 @@ public class HashToMin extends Configured implements Tool {
 				for (String str : entry.getValue()) {
 					finished += str + ",";
 					mos.write("sameAsCatalog", str.replace("comma", ",")
-							.replace("papaki", "@"), id + code,
+							.replace("papaki", "@"),"EID"+ id + code,
 							"sameAsCatalog/");
 				}
 				finished = finished.substring(0, finished.length() - 1);
@@ -622,7 +611,7 @@ public class HashToMin extends Configured implements Tool {
 				if (datasets.length() > 1)
 					datasets = datasets.substring(0, datasets.length() - 1);
 				mos.write("sameAsChain",
-						id + code + "\t" + finished.replace("papaki", "@"),
+						"EID"+id + code + "\t" + finished.replace("papaki", "@"),
 						new Text(datasets), "sameAsChain/");
 
 				context.getCounter(Counter.CLASSESOFEQUIVALENCE).increment(1);

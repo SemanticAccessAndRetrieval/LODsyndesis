@@ -1,14 +1,3 @@
-/*
-This code belongs to the Semantic Access and Retrieval (SAR) group of the 
-Information Systems Laboratory (ISL) of the 
-Institute of Computer Science (ICS) of the  
-Foundation for Research and Technology – Hellas (FORTH)
-
-Nobody is allowed to use, copy, distribute, or modify this work.
-It is published for reasons of research results reproducibility.
-
-© 2017, Semantic Access and Retrieval group, All rights reserved
- */
 package gr.forth.ics.isl.sameAsCatalog;
 
 import gr.forth.ics.isl.preliminary.Prefix;
@@ -22,6 +11,7 @@ import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -39,6 +29,7 @@ public class GetNeighborsSameAs extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
 
+		
 		Configuration configuration = new Configuration();
 
 		configuration.setBoolean("mapred.compress.map.output", true);
@@ -54,6 +45,9 @@ public class GetNeighborsSameAs extends Configured implements Tool {
 
 	@Override
 	public int run(String[] args) throws Exception {
+	
+		String	jobid = "0" ;
+		getConf().set("job", jobid);
 		Job job = new Job(getConf(), "InvertedIndexApproach");
 		job.setJarByClass(GetNeighborsSameAs.class);
 		job.setOutputKeyClass(Text.class);
@@ -65,7 +59,7 @@ public class GetNeighborsSameAs extends Configured implements Tool {
 		job.setOutputFormatClass(TextOutputFormat.class);
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
-		String[] m = { "sameAsP" };
+		String[] m = { "sameAsP","finished" };
 		for (String x : m) {
 			MultipleOutputs.addNamedOutput(job, x, TextOutputFormat.class,
 					Text.class, Text.class);
@@ -88,7 +82,6 @@ public class GetNeighborsSameAs extends Configured implements Tool {
 			if (split.length == 2) {
 
 				if ((value.toString().contains("purl.org")
-						|| (value.toString().contains("nytimes"))
 						|| value.toString().contains("www.w3.org") || value
 						.toString().contains("xmlns.com/foaf"))) {
 					return;
@@ -101,6 +94,9 @@ public class GetNeighborsSameAs extends Configured implements Tool {
 					context.write(new Text(split[1].trim()), new Text(datasetID
 							+ "\t" + split[0].trim()));
 				}
+			}
+			if (split.length==1){
+				context.write(new Text(split[0].trim()), new Text(""));
 			}
 
 		}
@@ -153,12 +149,20 @@ public class GetNeighborsSameAs extends Configured implements Tool {
 
 	public static class Reduce extends Reducer<Text, Text, Text, Text> {
 		private MultipleOutputs<Text, Text> mos;
-
+		String code = "";
+		int plus=0;
 		@Override
-		protected void setup(Context context) {
-		    mos = new MultipleOutputs<Text, Text>(context);
-		}
+		protected void setup(Context context) throws IOException {
+			Configuration conf = context.getConfiguration();
+			mos = new MultipleOutputs<Text, Text>(context);
+			int id = context.getTaskAttemptID().getTaskID().getId();
+			String finalID = Integer.toString(id);
+			if (id < 10) {
+				finalID = "00" + Integer.toString(id);
+			}
+				code = "EIDD" + finalID;
 
+		}
 		public void cleanup(Context context) throws IOException,
 				InterruptedException {
 			mos.close();
@@ -195,9 +199,11 @@ public class GetNeighborsSameAs extends Configured implements Tool {
 					sameAsPairs = sameAsPairs.substring(0,
 							sameAsPairs.length() - 1);
 				String keyR = key.toString().replace(",", "comma");
-				mos.write("sameAsP", new Text(keyR), new Text(sameAsPairs
-						+ "\t" + datasetIDs), "sameAsP/sas");
+				mos.write("sameAsP", new Text(keyR), new Text(sameAsPairs), "sameAsP/sas");
 
+			}
+			else{
+				mos.write("finished", new Text(key), new Text(code+plus++), "finished/");
 			}
 
 		}

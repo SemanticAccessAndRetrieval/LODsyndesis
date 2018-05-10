@@ -1,15 +1,3 @@
-/*
-This code belongs to the Semantic Access and Retrieval (SAR) group of the 
-Information Systems Laboratory (ISL) of the 
-Institute of Computer Science (ICS) of the  
-Foundation for Research and Technology – Hellas (FORTH)
-
-Nobody is allowed to use, copy, distribute, or modify this work.
-It is published for reasons of research results reproducibility.
-
-© 2017, Semantic Access and Retrieval group, All rights reserved
-
- */
 package gr.forth.ics.isl.indexes;
 
 import gr.forth.ics.isl.preliminary.MapComparator;
@@ -89,7 +77,7 @@ public class CreatePrefixIndex extends Configured implements Tool {
 			String filename = fsplit.getPath().getName();
 			String split2[] = filename.split("_");
 			String split[] = value.toString().split("\t");
-			int datasetID = Integer.parseInt(split2[1].replace(".txt", ""));
+			int datasetID = Integer.parseInt(split2[0]);
 			if (split[0].split("/").length <= 1) {
 				return;
 			}
