@@ -312,7 +312,7 @@ Output: It will produce a folder literalsIndex.
 Output: Direct Counts of Literals Index--> dcLiterals
 
 <b>Create Literals Index Lattice by using 32 reducers:</b>   
-hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice dcLiterals latticeLiterals 32 1000 10 2 5 0.05   <br><br>
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice dcLiterals latticeLiterals 32 1000 8 2 5 0.05   <br><br>
 
 Description: It will measure the common Literals between subsets of sources until level 8 having at least 1000 common Literals.
 Moreover, it will save all the measurements from level 2 to level 5.
