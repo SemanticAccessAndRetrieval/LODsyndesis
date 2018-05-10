@@ -1,23 +1,78 @@
-Element Index and Lattice
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.GetNeighborsSameAs URIs/sameAs2_-1.txt nbrs 32
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP sameAs prefixIndexes/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1
-	hadoop fs -getmerge sameAs/sameAs1/sameAsCatalog/ sameAsCatalog1.txt 
-	hadoop fs -put sameAsCatalog1.txt URIs/ 
-	hadoop fs -getmerge sameAs/sameAs2/sameAsCatalog/ sameAsCatalog2.txt 
-	hadoop fs -put sameAsCatalog2.txt URIs/ 
-	hadoop fs -getmerge sameAs/sameAs3/sameAsCatalog/ sameAsCatalog3.txt 
-	hadoop fs -put sameAsCatalog3.txt URIs/ 
-	hadoop fs -getmerge sameAs/sameAs4/sameAsCatalog/ sameAsCatalog4.txt 
-	hadoop fs -put sameAsCatalog4.txt URIs/ 
-	hadoop fs -rm URIs/sameAs2_-1.txt
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateElementIndex URIs/ elementIndex prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 32 
-	hadoop fs -getmerge elementIndex/Part2/ part2.txt 
-	hadoop fs -put part2.txt elementIndex/Part1/
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts elementIndex/Part1 directCounts 1
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice directCounts lattice 32 1000 15 2 10 0.05 
+For constructing only Entity (or Element) Index
 
-Literals Index and Lattice
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateCommonLiteralsIndex Liteals/ literalsIndex  32
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts  literalsIndex/ directCountsLiterals 1
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice directCountsLiterals latticeLiterals 32 1000 15 2 10 0.05
+	Pre-Processing Steps: Download entities.zip and sameAs.zip from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS.
+	For URIs
+		hadoop fs -mkdir URIs
+		Unzip entities.zip and upload each file to HDFS: hadoop fs -put <file> URIs/
+	
+	For SameAs
+		Unzip sameAs.zip
+		hadoop fs -mv 1000_sameAs.nt URIs/
+
+	1. Prefix Index \& SameAs Prefix Index
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1
+		
+	2. EntityEquivalenceCatalog
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.GetNeighborsSameAs URIs/1000_sameAs.nt nbrs 32
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP sameAs prefixIndexes/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1
+		hadoop fs -getmerge sameAs/sameAs1/sameAsCatalog/ sameAsCatalog1.txt 
+		hadoop fs -put sameAsCatalog1.txt URIs/ 
+		hadoop fs -getmerge sameAs/sameAs2/sameAsCatalog/ sameAsCatalog2.txt 
+		hadoop fs -put sameAsCatalog2.txt URIs/ 
+		hadoop fs -getmerge sameAs/sameAs3/sameAsCatalog/ sameAsCatalog3.txt 
+		hadoop fs -put sameAsCatalog3.txt URIs/ 
+		hadoop fs -getmerge sameAs/sameAs4/sameAsCatalog/ sameAsCatalog4.txt 
+		hadoop fs -put sameAsCatalog4.txt URIs/ 
+	
+	3. Entity (or Element Index) Creation
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateElementIndex URIs/ elementIndex prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 32 
+		hadoop fs -getmerge elementIndex/Part2/ part2.txt 
+		hadoop fs -put part2.txt elementIndex/Part1/
+	
+	4. Lattice Measurements for Entities
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts elementIndex/Part1 directCounts 1
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice directCounts  lattice 32 100 15 2 5 0.05
+	
+	
+For constructing all Indexes 
+	Pre-Processing Steps: Download All Files from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS.
+		hadoop fs -mkdir Triples/
+		Unrar all .rar files containing triples (6 different parts) and upload each file to HDFS hadoop fs -put <file> Triples/
+		hadoop fs -put entityEquivalenceCatalog.txt Triples/ 
+		hadoop fs -put propertyEquivalenceCatalog.txt 
+		hadoop fs -put classEquivalenceCatalog.txt 
+		
+	1. Creation of Real World Triples
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceSubjects Triples/ subjects  32 propertyEquivalenceCatalog.txt classEquivalenceCatalog.txt <br>
+		hadoop fs -mv Triples/entityEquivalenceCatalog.txt subjects/object/ <br>
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceObjects subjects/object objects/ 32 <br>
+		hadoop fs -mkdir realWorldTriples  <br>
+		hadoop fs -mv subjects/finished/* realWorldTriples/ <br>
+		hadoop fs -mv objects/* realWorldTriples/ <br>
+
+	2.Creation of Entity-Triples Index and Lattice Measurements for Triples
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateEntityTriplesIndex  realWorldTriples/  entityTriplesIndex 32 0 0
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts entityTriplesIndex/ dcTriples 1
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice dcTriples latticeTriples 32 100 15 2 5 0.05 
+
+
+	3. Creation of URI Indexes and Lattice Measurements for URIs
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateEntityIndex  realWorldTriples/ URI_Indexes 32
+		
+		3a. Lattice for Entities
+			hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts URI_Indexes/entities dcEntities 1
+			hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice dcEntities latticeEntities 32 100 15 2 5 0.05 
+			
+		3b. Lattice for Properties
+			hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts URI_Indexes/properties dcProperties 1
+			hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice dcProperties latticeProperties 32 10 15 2 5 0.05 
+
+		3c. Lattice for Classes
+			hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts URI_Indexes/classes dcClasses 1
+			hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice dcClasses latticeClasses 32 10 15 2 5 0.05 
+
+
+	4. Creation of Literals Index
+		 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateLiteralsIndex  realWorldTriples/ literalsIndex 32
+		 hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts  literalsIndex/ directCountsLiterals 1
+		 hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice directCountsLiterals latticeLiterals 32 1000 10 2 5 0.05
