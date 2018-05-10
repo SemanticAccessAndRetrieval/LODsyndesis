@@ -156,11 +156,11 @@ where <br>
 <h2>Full Example for creating the indexes</h2>
 
 <h3>For constructing only Entity (or Element) Index </h3>
-    Pre-Processing Steps: Download entities.zip and sameAs.zip from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS.
-		hadoop fs -mkdir URIs
-		Unzip entities.zip and upload each file to HDFS: hadoop fs -put <file> URIs/
-		Unzip sameAs.zip
-		hadoop fs -mv 1000_sameAs.nt URIs/
+    Pre-Processing Steps: Download entities.zip and sameAs.zip from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS. <br>
+		hadoop fs -mkdir URIs  <br>
+		Unzip entities.zip and upload each file to HDFS: hadoop fs -put <file> URIs/  <br>
+		Unzip sameAs.zip  <br>
+		hadoop fs -mv 1000_sameAs.nt URIs/  <br>
 		
 	<b> Create Prefix Index by using one reducer: </b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br><br>
 	Output: Prefix Index file--> prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 <br>
@@ -322,5 +322,6 @@ Moreover, it will save all the measurements from level 2 to level 5.
 Output: A folder latticeProperties/Print containing the measurements for nodes from level 2 to 5 having at least 1000 common Literals.
 
 </body>
-    
+  
+  
 </html>
