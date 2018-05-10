@@ -156,7 +156,8 @@ where <br>
 <h2>Full Example for creating the indexes</h2>
 
 <h3>For constructing only Entity (or Element) Index </h3>
-   a. Pre-Processing Steps: Download entities.zip and sameAs.zip from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS. <br>
+Pre-Processing Steps: <br>
+a. Download entities.zip and sameAs.zip from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS. <br>
 b.	hadoop fs -mkdir URIs  <br>
 c.		Unzip entities.zip and upload each file to HDFS: hadoop fs -put <file> URIs/  <br>
 d.		Unzip sameAs.zip  <br>
