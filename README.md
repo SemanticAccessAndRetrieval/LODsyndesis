@@ -184,9 +184,7 @@ hadoop fs -getmerge sameAs/sameAs3/sameAsCatalog/ sameAsCatalog3.txt <br>
 hadoop fs -put sameAsCatalog3.txt URIs/  <br>
 hadoop fs -getmerge sameAs/sameAs4/sameAsCatalog/ sameAsCatalog4.txt <br>
 hadoop fs -put sameAsCatalog4.txt URIs/  <br>
-
-	
-	<b>Create Entity Index by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateElementIndex URIs/ elementIndex prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 32
+<b>Create Entity Index by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateElementIndex URIs/ elementIndex prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 32
 <br><br>
 Output: It will perform 2 iterations and the element Index can be found in 2 Parts--> elementIndex/Part1, elementIndex/Part2
 
