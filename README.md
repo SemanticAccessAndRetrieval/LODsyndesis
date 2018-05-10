@@ -105,12 +105,12 @@ where <br>
 
 <h4> Create Indexes for URIs</h4>
 <b> Command for creating the Entity Index, Property Index and Class Index: </b>
-hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateEntityIndex &lt;Real World Triples Folder&gt; &lt;Output Folder&gt; &lt;Prefix Index Path&gt; &lt;Number of Reducers&gt; <br>
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateEntityIndex &lt;Real World Triples Folder&gt; &lt;Output Folder&gt; &lt;Prefix Index Path&gt; &lt;Number of Reducers&gt; &lt;Store Entities Occuring in only in two or more datasets&gt; <br>
 where <br>
 &lt;Real World Triples folder&gt;: The folder containing the real world triples <br>
 &lt;Output folder&gt;: The output folder for storing the URI indexes. <br>
 &lt;Number of Reducers&gt;: The number of reducers to be used. <br>
-
+&lt;Store Entities Occuring in only in two or more datasets&gt; Put 1 for storing only such entities, put 0 for storing all the entities <br>
 
 
 
@@ -118,12 +118,12 @@ where <br>
  
 <h4> Create the Literals Index</h4>
 <b> Command for running the Literals Index: </b>
-hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateLiteralsIndex &lt;Real World Triples Folder&gt; &lt;Output Folder&gt;  &lt;Number of Reducers&gt; <br>
+	hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateLiteralsIndex &lt;Real World Triples Folder&gt; &lt;Output Folder&gt;  &lt;Number of Reducers&gt; &lt;Store Literals Occuring in only in two or more datasets&gt; <br> <br>
 where <br>
 &lt;Real World Triples folder&gt;: The folder containing the Real World Triples<br>
 &lt;Output folder&gt;: The output folder for storing the literals index. <br>
 &lt;Number of Reducers&gt;: The number of reducers to be used. <br>
-
+&lt;Store Literals Occuring in only in two or more datasets&gt; Put 1 for storing only such literals, put 0 for storing all the literals <br>
 
 
 <h3> Perform Lattice Measurements <h3>
@@ -258,8 +258,8 @@ Output: A folder latticeTriples/Print containing the measurements for nodes from
 
 
 <b>Create URI Indexes by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateEntityIndex  realWorldTriples/ 
-URI_Indexes 32 <br><br>
-Output: It will produce a folder URI_Indexes, containing 3 subfolders: a)entities (i.e., Entity-Index) b) properties (i.e., Property-Index) and c) classes (i.e., Classes Index).
+URI_Indexes 32 0<br><br>
+Output: It will produce a folder URI_Indexes, containing 3 subfolders: a) entities (i.e., Entity-Index) b) properties (i.e., Property-Index) and c) classes (i.e., Class-Index).
 
 
 <b>Create Entity Index Direct Counts by using 1 Reducer:</b>  hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts URI_Indexes/entities dcEntities 1
@@ -304,7 +304,7 @@ Output: A folder latticeProperties/Print containing the measurements for nodes f
 
 
 <b>Create Literals Index by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateLiteralsIndex  realWorldTriples/ 
-literalsIndex 32 <br><br>
+literalsIndex 32 0 <br><br>
 Output: It will produce a folder literalsIndex.
 
 <b>Create Literals Index Direct Counts by using 1 Reducer:</b>
