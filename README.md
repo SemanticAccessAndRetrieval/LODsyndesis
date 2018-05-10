@@ -162,7 +162,7 @@ a. Download entities.zip and sameAs.zip from <a href="http://islcatalog.ics.fort
 b.	hadoop fs -mkdir URIs  <br>
 c.		Unzip entities.zip and upload each file to HDFS: hadoop fs -put <file> URIs/  <br>
 d.		Unzip sameAs.zip  <br>
-e.		hadoop fs -mv 1000_sameAs.nt URIs/  <br>
+e.		hadoop fs -mv 1000_sameAs.nt URIs/  <br><br>
 <b> Create Prefix Index by using one reducer: </b> <br>
 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br><br>
 Output: Prefix Index file--> prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 <br>
@@ -206,7 +206,7 @@ Description: It will measure the common elements between subsets of sources unti
 Moreover, it will save all the measurements from level 2 to level 5.
 <br><br>
 Output: A folder lattice/Print containing the measurements for nodes from level 2 to 5 having at least 100 common elements
-
+<br>
 
 <h3>For constructing All the Indexes </h3>
 	Pre-Processing Steps: <br>  a. Download catalogs.rar and all .rar. files starting with triples.part 
@@ -216,7 +216,7 @@ Output: A folder lattice/Print containing the measurements for nodes from level 
 		d. Unrar catalogs.rar <br>
 		e. hadoop fs -put entityEquivalenceCatalog.txt Triples/  <br>
 		f. hadoop fs -put propertyEquivalenceCatalog.txt  <br>
-		g. hadoop fs -put classEquivalenceCatalog.txt <br>
+		g. hadoop fs -put classEquivalenceCatalog.txt <br><br>
 
 <b>Create Real World Triples Index by using 32 Reducers:</b>
 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceSubjects Triples/ subjects  32 propertyEquivalenceCatalog.txt classEquivalenceCatalog.txt
