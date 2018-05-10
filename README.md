@@ -156,13 +156,14 @@ where <br>
 <h2>Full Example for creating the indexes</h2>
 
 <h3>For constructing only Entity (or Element) Index </h3>
-    Pre-Processing Steps: Download entities.zip and sameAs.zip from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS. <br>
-		hadoop fs -mkdir URIs  <br>
-		Unzip entities.zip and upload each file to HDFS: hadoop fs -put <file> URIs/  <br>
-		Unzip sameAs.zip  <br>
-		hadoop fs -mv 1000_sameAs.nt URIs/  <br>
+   a. Pre-Processing Steps: Download entities.zip and sameAs.zip from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS. <br>
+b.	hadoop fs -mkdir URIs  <br>
+c.		Unzip entities.zip and upload each file to HDFS: hadoop fs -put <file> URIs/  <br>
+d.		Unzip sameAs.zip  <br>
+e.		hadoop fs -mv 1000_sameAs.nt URIs/  <br>
 		
-	<b> Create Prefix Index by using one reducer: </b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br><br>
+	<b> Create Prefix Index by using one reducer: </b> <br>
+	hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br><br>
 	Output: Prefix Index file--> prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 <br>
 	SameAsPrefix Index file--> sameAsPrefix/sameAsPrefix.txt-r-00000 <br>
 
