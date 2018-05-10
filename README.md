@@ -162,29 +162,28 @@ b.	hadoop fs -mkdir URIs  <br>
 c.		Unzip entities.zip and upload each file to HDFS: hadoop fs -put <file> URIs/  <br>
 d.		Unzip sameAs.zip  <br>
 e.		hadoop fs -mv 1000_sameAs.nt URIs/  <br>
-		
-	<b> Create Prefix Index by using one reducer: </b> <br>
-	hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br><br>
-	Output: Prefix Index file--> prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 <br>
-	SameAsPrefix Index file--> sameAsPrefix/sameAsPrefix.txt-r-00000 <br>
+<b> Create Prefix Index by using one reducer: </b> <br>
+hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreatePrefixIndex URIs prefixIndexes 1<br><br>
+Output: Prefix Index file--> prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 <br>
+SameAsPrefix Index file--> sameAsPrefix/sameAsPrefix.txt-r-00000 <br>
 
-	<b> Create SameAs Neighbors by using 32 reducers: </b>hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.GetNeighborsSameAs URIs/1000_sameAs.nt nbrs 32  <br><br>
-	Output: SameAs neighbors folder--> nbrs/sameAsP <br>
+<b> Create SameAs Neighbors by using 32 reducers: </b>hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.GetNeighborsSameAs URIs/1000_sameAs.nt nbrs 32  <br><br>
+Output: SameAs neighbors folder--> nbrs/sameAsP <br>
 
-	<b>Create SameAs Catalog by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP sameAs prefixIndexes/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1<br><br>
-	Output: It will perform 4 iterations and the SameAs Catalog can be found in 4 Parts--> sameAs/sameAs1/sameAsCatalog, sameAs/sameAs2/sameAsCatalog, sameAs/sameAs3/sameAsCatalog, sameAs/sameAs4/sameAsCatalog<br>
+<b>Create SameAs Catalog by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.sameAsCatalog.HashToMin nbrs/sameAsP sameAs prefixIndexes/sameAsPrefix/sameAsPrefix.txt-r-00000 32 1000000 1<br><br>
+Output: It will perform 4 iterations and the SameAs Catalog can be found in 4 Parts--> sameAs/sameAs1/sameAsCatalog, sameAs/sameAs2/sameAsCatalog, sameAs/sameAs3/sameAsCatalog, sameAs/sameAs4/sameAsCatalog<br>
 
-	<b> Intermediate Steps:</b>
-	Merge sameAsCatalog files and then upload them to the URIs folder <br>
-	  
-	hadoop fs -getmerge sameAs/sameAs1/sameAsCatalog/ sameAsCatalog1.txt <br>
-	hadoop fs -put sameAsCatalog1.txt URIs/  <br>
-	hadoop fs -getmerge sameAs/sameAs2/sameAsCatalog/ sameAsCatalog2.txt <br>
-	hadoop fs -put sameAsCatalog2.txt URIs/  <br>
-	hadoop fs -getmerge sameAs/sameAs3/sameAsCatalog/ sameAsCatalog3.txt <br>
-	hadoop fs -put sameAsCatalog3.txt URIs/  <br>
-	hadoop fs -getmerge sameAs/sameAs4/sameAsCatalog/ sameAsCatalog4.txt <br>
-	hadoop fs -put sameAsCatalog4.txt URIs/  <br>
+<b> Intermediate Steps:</b>
+Merge sameAsCatalog files and then upload them to the URIs folder <br>
+  
+hadoop fs -getmerge sameAs/sameAs1/sameAsCatalog/ sameAsCatalog1.txt <br>
+hadoop fs -put sameAsCatalog1.txt URIs/  <br>
+hadoop fs -getmerge sameAs/sameAs2/sameAsCatalog/ sameAsCatalog2.txt <br>
+hadoop fs -put sameAsCatalog2.txt URIs/  <br>
+hadoop fs -getmerge sameAs/sameAs3/sameAsCatalog/ sameAsCatalog3.txt <br>
+hadoop fs -put sameAsCatalog3.txt URIs/  <br>
+hadoop fs -getmerge sameAs/sameAs4/sameAsCatalog/ sameAsCatalog4.txt <br>
+hadoop fs -put sameAsCatalog4.txt URIs/  <br>
 
 	
 	<b>Create Entity Index by using 32 Reducers:</b> hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateElementIndex URIs/ elementIndex prefixIndexes/prefixIndex/prefixIndex.txt-r-00000 32
@@ -211,14 +210,14 @@ Output: A folder lattice/Print containing the measurements for nodes from level 
 
 
 <h3>For constructing All the Indexes </h3>
-	Pre-Processing Steps: Download catalogs.rar and all .rar. files starting with triples.part 
+	Pre-Processing Steps: <br>  a.Download catalogs.rar and all .rar. files starting with triples.part 
 	from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS. <br>
-		hadoop fs -mkdir Triples/ <br>
-		Unrar all .rar files containing triples (6 different parts) and upload each file to HDFS hadoop fs -put <file> Triples/ <br>
-		Unrar catalogs.rar <br>
-		hadoop fs -put entityEquivalenceCatalog.txt Triples/  <br>
-		hadoop fs -put propertyEquivalenceCatalog.txt  <br>
-		hadoop fs -put classEquivalenceCatalog.txt <br>
+		b. hadoop fs -mkdir Triples/ <br>
+		c. Unrar all .rar files containing triples (6 different parts) and upload each file to HDFS hadoop fs -put <file> Triples/ <br>
+		d. Unrar catalogs.rar <br>
+		e. hadoop fs -put entityEquivalenceCatalog.txt Triples/  <br>
+		f. hadoop fs -put propertyEquivalenceCatalog.txt  <br>
+		g. hadoop fs -put classEquivalenceCatalog.txt <br>
 
 <b>Create Real World Triples Index by using 32 Reducers:</b>
 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceSubjects Triples/ subjects  32 propertyEquivalenceCatalog.txt classEquivalenceCatalog.txt
