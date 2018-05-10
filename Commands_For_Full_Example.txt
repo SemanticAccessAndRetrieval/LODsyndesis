@@ -43,12 +43,12 @@ For constructing all Indexes
 		hadoop fs -put classEquivalenceCatalog.txt 
 		
 	1. Creation of Real World Triples
-		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceSubjects Triples/ subjects  32 propertyEquivalenceCatalog.txt classEquivalenceCatalog.txt <br>
-		hadoop fs -mv Triples/entityEquivalenceCatalog.txt subjects/object/ <br>
-		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceObjects subjects/object objects/ 32 <br>
-		hadoop fs -mkdir realWorldTriples  <br>
-		hadoop fs -mv subjects/finished/* realWorldTriples/ <br>
-		hadoop fs -mv objects/* realWorldTriples/ <br>
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceSubjects Triples/ subjects  32 propertyEquivalenceCatalog.txt classEquivalenceCatalog.txt 
+		hadoop fs -mv Triples/entityEquivalenceCatalog.txt subjects/object/ 
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceObjects subjects/object objects/ 32
+		hadoop fs -mkdir realWorldTriples  
+		hadoop fs -mv subjects/finished/* realWorldTriples/ 
+		hadoop fs -mv objects/* realWorldTriples/ 
 
 	2.Creation of Entity-Triples Index and Lattice Measurements for Triples
 		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateEntityTriplesIndex  realWorldTriples/  entityTriplesIndex 32 0 0
@@ -57,7 +57,7 @@ For constructing all Indexes
 
 
 	3. Creation of URI Indexes and Lattice Measurements for URIs
-		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateEntityIndex  realWorldTriples/ URI_Indexes 32
+		hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateEntityIndex  realWorldTriples/ URI_Indexes 32 0
 		
 		3a. Lattice for Entities
 			hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts URI_Indexes/entities dcEntities 1
@@ -73,6 +73,6 @@ For constructing all Indexes
 
 
 	4. Creation of Literals Index
-		 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateLiteralsIndex  realWorldTriples/ literalsIndex 32
+		 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.CreateLiteralsIndex  realWorldTriples/ literalsIndex 32 0
 		 hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateDirectCounts  literalsIndex/ directCountsLiterals 1
 		 hadoop jar LODsyndesis.jar gr.forth.ics.isl.latticeCreation.CreateLattice directCountsLiterals latticeLiterals 32 1000 10 2 5 0.05
