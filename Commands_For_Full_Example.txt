@@ -1,6 +1,6 @@
 For constructing only Entity (or Element) Index
 
-	Pre-Processing Steps: Download entities.zip and sameAs.zip from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS.
+	Pre-Processing Steps: Download entities.zip and sameAs.zip from =http://islcatalog.ics.forth.gr/dataset/lodsyndesis and upload them to HDFS.
 	For URIs
 		hadoop fs -mkdir URIs
 		Unzip entities.zip and upload each file to HDFS: hadoop fs -put <file> URIs/
@@ -35,7 +35,7 @@ For constructing only Entity (or Element) Index
 	
 	
 For constructing all Indexes 
-	Pre-Processing Steps: Download All Files from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS.
+	Pre-Processing Steps: Download All Files from http://islcatalog.ics.forth.gr/dataset/lodsyndesis and upload them to HDFS.
 		hadoop fs -mkdir Triples/
 		Unrar all .rar files containing triples (6 different parts) and upload each file to HDFS hadoop fs -put <file> Triples/
 		hadoop fs -put entityEquivalenceCatalog.txt Triples/ 
