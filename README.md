@@ -76,7 +76,7 @@ where <br>
 &lt;Output folder&gt;: The output folder for storing the real world triples <br>
 &lt;Number of Reducers&gt;: The number of reducers to be used. <br>
 &lt;PropertyCatalog File&gt; : The file containing the Property Equivalence Catalog<br>  
-&lt;ClassCatalog File&gt;: The file containing the Classs Equivalence Catalog<br>
+&lt;ClassCatalog File&gt;: The file containing the Class Equivalence Catalog<br>
 
 <br>
 <b> Second Job </b>
