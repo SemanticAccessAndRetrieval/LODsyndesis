@@ -3,14 +3,15 @@
 <body>
 This page contains the code for creating the indexes and measurements of LODsyndesis (see  <a href="www.ics.forth.gr/isl/LODsyndesis/">LODsyndesis website</a> for more information). By executing the LODsyndesis.jar, one can create <ul>
 <li>the Prefix Index and SameAsPrefixIndex, </li>
+
 <li>the SameAsCatalog, </li>
-<li>the Real World Triples </li>
-<li>the Entity Triples Index</li>
 <li>the Entity Index, </li>
+<li>the Real World Triples, </li>
+<li>the Entity Triples Index,</li>
 <li>the Property Index, </li>
 <li>the Class Index, </li>
 <li>the Literals Index, </li>
-<li>the Lattice of Common Elements among any subset of sources.</li>
+<li>the Lattice of Commonalities for any index among any subset of sources.</li>
 </ul> 
 
 <h2> Datasets</h2>
@@ -208,7 +209,7 @@ Output: A folder lattice/Print containing the measurements for nodes from level 
 
 
 <h3>For constructing All the Indexes </h3>
-	Pre-Processing Steps: <br>  a.Download catalogs.rar and all .rar. files starting with triples.part 
+	Pre-Processing Steps: <br>  a. Download catalogs.rar and all .rar. files starting with triples.part 
 	from <a href="http://islcatalog.ics.forth.gr/dataset/lodsyndesis">FORTH-ISL catalog</a> and upload them to HDFS. <br>
 		b. hadoop fs -mkdir Triples/ <br>
 		c. Unrar all .rar files containing triples (6 different parts) and upload each file to HDFS hadoop fs -put <file> Triples/ <br>
@@ -226,9 +227,7 @@ For running the second job, one should move entityEquivalenceCatalog.txt to subj
 hadoop fs -mv Triples/entityEquivalenceCatalog.txt subjects/object/ <br>
 
 Then, one should run the following command: <br>
- 
 hadoop jar LODsyndesis.jar gr.forth.ics.isl.indexes.ReplaceObjects subjects/object objects/ 32 <br>
-<br><br>
 Output: It will produce 1 folder containing the second part of real world triples<br>
 <br> 
 
