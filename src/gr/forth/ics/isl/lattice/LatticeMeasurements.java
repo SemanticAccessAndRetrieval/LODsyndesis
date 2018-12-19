@@ -96,7 +96,7 @@ public class LatticeMeasurements {
             String unionDataset = "datasets/coverage/" + dataset + ".txt";
             
             System.out.println("Select the Desired Approach for computing Coverage:"+
-                    "DCS,TR,LBDC,LBDC_NOPR,LBTR,LBTR_NOPR");
+                    "DCS,LB,LB+PR");//@TR,LBTR,LBTR_NOPR");
             String choice2 = keyboard.next();
 
             System.out.println("Select the minimum Number of Subsets:");
@@ -120,12 +120,13 @@ public class LatticeMeasurements {
                     } else if (choice2.equals("TR")) {
                         td.SFUnionTrie(order, 1, unionDataset, null, 0, "0", "", null, null, null, i, print);
 
-                    } else if (choice2.equals("LBDC")) {
+                    } else if (choice2.equals("LB+PR")) {
                         td.recursiveSFUnion(order, 2, unionDataset, null, 0, "0", "", null, i, print);
+                        
 
                     } else if (choice2.equals("LBTR")) {
                         td.recursiveUnionTrie(order, 1, unionDataset, null, 0, "0", "", null, null, null, i, print);
-                    } else if (choice2.equals("LBDC_NOPR")) {
+                    } else if (choice2.equals("LB")) {
                         td.recursiveSFUnionNoPruning(order, 2, unionDataset, null, 0, "0", "", null, i, print);
 
                     } else if (choice2.equals("LBTR_NOPR")) {
@@ -137,7 +138,8 @@ public class LatticeMeasurements {
 
                     long estimatedTime = System.currentTimeMillis() - startTime;
                     if (!choice2.equals("")) {
-                       System.out.println(+i + " Subsets\tApproach:" + choice2 + "\tTime (Seconds):" + (double) estimatedTime / (1000));
+                       System.out.println(+i + " Subsets\tApproach:" + choice2 + "\tTime (Seconds):\t" + (double) estimatedTime / (1000)+"\t"+(double) td.checks/(Math.pow(2, i)));
+                    
                     }
 
                 
@@ -145,5 +147,8 @@ public class LatticeMeasurements {
             }
         }
     }
+    
+    
+    
 
 }
