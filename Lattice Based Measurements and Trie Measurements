@@ -2,6 +2,30 @@ Lattice Based Measurements and Trie Measurements
 
 For that measurements run the main class LatticeMeasurements.java in src/gr/forth/ics/isl/lattice
 
+For example, for coverage an indicative output is:
+
+Select the Measurement Type: Commonalities or Coverage
+Coverage
+Select the Dataset: EntitiesDesc, LiteralsDesc, TriplesDesc, EntitiesSemiDesc,EntitiesMedium,EntitiesSemiAsc,EntitiesAsc
+EntitiesDesc
+Select the Desired Approach for computing Coverage:DCS,LB,LB+PR
+LBDC
+Select the minimum Number of Subsets:
+10
+Select the maximum Number of Subsets:
+15
+Print the coverage of all the subsets? true or false
+false
+10 Subsets	Approach:LB+PR	Time (Seconds):0.229
+11 Subsets	Approach:LB+PR	Time (Seconds):0.116
+12 Subsets	Approach:LB+PR	Time (Seconds):0.133
+13 Subsets	Approach:LB+PR	Time (Seconds):0.244
+14 Subsets	Approach:LB+PR	Time (Seconds):0.701
+15 Subsets	Approach:LB+PR	Time (Seconds):0.378
+
+
+
+
 For example, for commonalities an indicative output is
 
 Select the Measurement Type: Commonalities or Coverage
@@ -26,23 +50,3 @@ false
 
 
 
-For example, for coverage an indicative output is:
-
-Select the Measurement Type: Commonalities or Coverage
-Coverage
-Select the Dataset: EntitiesDesc, LiteralsDesc, TriplesDesc, EntitiesSemiDesc,EntitiesMedium,EntitiesSemiAsc,EntitiesAsc
-EntitiesDesc
-Select the Desired Approach for computing Coverage:DCS,TR,LBDC,LBDC_NOPR,LBTR,LBTR_NOPR
-LBDC
-Select the minimum Number of Subsets:
-10
-Select the maximum Number of Subsets:
-15
-Print the coverage of all the subsets? true or false
-false
-10 Subsets	Approach:LBDC	Time (Seconds):0.229
-11 Subsets	Approach:LBDC	Time (Seconds):0.116
-12 Subsets	Approach:LBDC	Time (Seconds):0.133
-13 Subsets	Approach:LBDC	Time (Seconds):0.244
-14 Subsets	Approach:LBDC	Time (Seconds):0.701
-15 Subsets	Approach:LBDC	Time (Seconds):0.378
