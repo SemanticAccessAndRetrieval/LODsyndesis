@@ -1,7 +1,7 @@
 # LODsyndesis: Connectivity of Linked Open Datasets
 <html>
 <body>
-This page contains the code for creating the indexes and measurements of LODsyndesis (see  <a href="www.ics.forth.gr/isl/LODsyndesis/">LODsyndesis website</a> for more information). By executing the LODsyndesis.jar, one can create <ul>
+This page contains the code for creating the indexes and measurements of LODsyndesis (see  <a href="http://www.ics.forth.gr/isl/LODsyndesis/">LODsyndesis website</a> for more information). By executing the LODsyndesis.jar, one can create <ul>
 <li>the Prefix Index and SameAsPrefixIndex, </li>
 
 <li>the SameAsCatalog, </li>
